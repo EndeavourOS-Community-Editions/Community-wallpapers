@@ -15,10 +15,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install jpefoptim
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jpegoptim
+
       - name: Install optimization tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y jpegoptim oxipng
+          sudo apt-get install -y jpegoptim cargo
+          cargo install oxipng
 
       - name: Set up Git user
         run: |
