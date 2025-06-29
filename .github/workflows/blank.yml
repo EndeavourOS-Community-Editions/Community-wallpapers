@@ -1,0 +1,45 @@
+name: Optimize Images
+
+on:
+  push:
+    paths:
+      - 'eos_wallpapers_classic/**'
+      - 'eos_wallpapers_community/**'
+      - 'scripts/optimize-images.sh'
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install optimization tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jpegoptim oxipng
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Make script executable
+        run: chmod +x scripts/optimize-images.sh
+
+      - name: Run optimization script
+        run: ./scripts/optimize-images.sh
+
+      - name: Check for changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git add .
+          git commit -m "Optimize images on $(date '+%Y-%m-%d')"
+          git push
