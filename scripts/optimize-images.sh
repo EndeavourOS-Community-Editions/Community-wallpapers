@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 # Optimize all JPG files in eos_wallpapers_classic and eos_wallpapers_community using jpegoptim
-#find eos_wallpapers_classic/ eos_wallpapers_community/ -iname "*.jpg" -exec jpegoptim --strip-all --all-progressive --max=90 {} \;
-# only optimize png for now
+find eos_wallpapers_classic/ eos_wallpapers_community/ -iname "*.jpg" -exec jpegoptim --strip-all --all-progressive {} \;
 
-# Optimize all PNG files in eos_wallpapers_classic and eos_wallpapers_community using oxipng
-find eos_wallpapers_classic/ eos_wallpapers_community/ -iname "*.png" -exec oxipng -o max -strip all {} \;
+# Optimize all PNG files in eos_wallpapers_classic and eos_wallpapers_community using zopflipng
+find ./images/ -iname '*.png' -exec zopflipng --iterations=100 --splitting=3 {} {} \;
 
