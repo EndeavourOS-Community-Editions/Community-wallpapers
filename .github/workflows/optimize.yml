@@ -29,8 +29,8 @@ jobs:
       - name: Make script executable
         run: chmod +x scripts/optimize-images.sh
 
-      - name: Run optimization script
-        run: ./scripts/optimize-images.sh
+      #- name: Run optimization script
+        #run: ./scripts/optimize-images.sh
 
       - name: Check for changes
         run: |
