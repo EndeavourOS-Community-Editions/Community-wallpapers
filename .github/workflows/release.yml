@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+          
       - name: Create release archive
         run: |
           tar --exclude='.git' --exclude='scripts' --exclude='README.md' --exclude='community-wallpapers.png' \
