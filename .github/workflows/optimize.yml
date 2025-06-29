@@ -15,11 +15,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      #- name: Install optimization tools
-        #run: |
-            #sudo apt-get update
-            #sudo apt-get install -y jpegoptim cargo
-           # cargo install oxipng
+      - name: Install optimization tools
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y jpegoptim cargo
+            cargo install oxipng
 
       - name: Set up Git user
         run: |
@@ -29,8 +29,8 @@ jobs:
       - name: Make script executable
         run: chmod +x scripts/optimize-images.sh
 
-      #- name: Run optimization script
-        #run: ./scripts/optimize-images.sh
+      - name: Run optimization script
+        run: ./scripts/optimize-images.sh
 
       - name: Check for changes
         run: |
