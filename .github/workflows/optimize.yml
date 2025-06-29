@@ -44,3 +44,29 @@ jobs:
           git add .
           git commit -m "Optimize images on $(date '+%Y-%m-%d')"
           git push
+
+      - name: Create release archive
+        run: |
+          tar --exclude='.git' --exclude='scripts' --exclude='README.md' --exclude='community-wallpapers.png' \
+              -czf wallpapers_release.tar.gz eos_wallpapers_community eos_wallpapers_classic
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: "Automated Release ${{ github.run_number }}"
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./wallpapers_release.tar.gz
+          asset_name: wallpapers_release.tar.gz
+          asset_content_type: application/gzip
