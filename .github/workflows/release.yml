@@ -26,7 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.run_number }}
-          release_name: "Automated Release ${{ github.run_number }}"
+          release_name: "EndeavourOS Community-wallpapers ${{ github.run_number }}"
           draft: false
           prerelease: false
 
@@ -36,6 +36,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./wallpapers_release.tar.gz
-          asset_name: wallpapers_release.tar.gz
+          asset_path: ./endeavouros-community-wallpapers.tar.gz
+          asset_name: endeavouros-community-wallpapers.tar.gz
           asset_content_type: application/gzip
