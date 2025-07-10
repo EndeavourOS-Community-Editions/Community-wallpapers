@@ -17,9 +17,9 @@ jobs:
       - name: Create release archives
         run: |
           tar --exclude='.git' --exclude='scripts' --exclude='README.md' --exclude='community-wallpapers.png' \
-              -czf eos-ce-wallpapers_release.tar.gz eos_wallpapers_community
+              -czf eos_wallpapers_community_release.tar.gz eos_wallpapers_community
           tar --exclude='.git' --exclude='scripts' --exclude='README.md' --exclude='community-wallpapers.png' \
-              -czf eos_wallpapers_classic.tar.gz eos_wallpapers_classic
+              -czf eos_wallpapers_classic_release.tar.gz eos_wallpapers_classic
 
       - name: Create GitHub Release
         id: create_release
@@ -38,8 +38,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./eos-ce-wallpapers_release.tar.gz
-          asset_name: eos-ce-wallpapers_release.tar.gz
+          asset_path: ./eos_wallpapers_community_release.tar.gz
+          asset_name: eos_wallpapers_community_release.tar.gz
           asset_content_type: application/gzip
 
       - name: Upload eos_wallpapers_classic.tar.gz
@@ -48,6 +48,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./eos_wallpapers_classic.tar.gz
-          asset_name: eos_wallpapers_classic.tar.gz
+          asset_path: ./eos_wallpapers_classic_release.tar.gz
+          asset_name: eos_wallpapers_classic_release.tar.gz
           asset_content_type: application/gzip
