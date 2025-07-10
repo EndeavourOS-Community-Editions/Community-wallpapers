@@ -2,9 +2,9 @@ name: Create and Upload Release
 
 on:
   workflow_run:
-    workflows: ["Optimize"] # This must match the 'name:' field in optimize.yml
+    workflows: ["Optimize"]
     types:
-      - completed           # or use 'success' if you want only on successful runs
+      - completed
 
 jobs:
   release:
@@ -13,11 +13,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-          
-      - name: Create release archive
+
+      - name: Create release archives
         run: |
           tar --exclude='.git' --exclude='scripts' --exclude='README.md' --exclude='community-wallpapers.png' \
-              -czf wallpapers_release.tar.gz eos_wallpapers_community eos_wallpapers_classic
+              -czf eos-ce-wallpapers_release.tar.gz eos_wallpapers_community
+          tar --exclude='.git' --exclude='scripts' --exclude='README.md' --exclude='community-wallpapers.png' \
+              -czf eos_wallpapers_classic.tar.gz eos_wallpapers_classic
 
       - name: Create GitHub Release
         id: create_release
@@ -30,12 +32,22 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
+      - name: Upload eos-ce-wallpapers_release.tar.gz
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./wallpapers_release.tar.gz
-          asset_name: wallpapers_release.tar.gz
+          asset_path: ./eos-ce-wallpapers_release.tar.gz
+          asset_name: eos-ce-wallpapers_release.tar.gz
+          asset_content_type: application/gzip
+
+      - name: Upload eos_wallpapers_classic.tar.gz
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./eos_wallpapers_classic.tar.gz
+          asset_name: eos_wallpapers_classic.tar.gz
           asset_content_type: application/gzip
