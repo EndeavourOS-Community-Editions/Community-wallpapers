@@ -1,14 +1,3 @@
-name: Sync Repo to GitLab
+ https://gitlab.com/endeavouros-filemirror/Community-wallpapers.git
 
-on:
-  push
 
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: keninkujovic/gitlab-sync@2.0.0
-      with:
-        gitlab_url: https://gitlab.com/endeavouros-filemirror/Community-wallpapers.git
-        username: ${{ secrets.GITLAB_USR }}
-        gitlab_pat: ${{ secrets.GITLAB_PAT }}
