@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Mirror repository to GitLab
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
           GITLAB_TOKEN: ${{ secrets.GITLAB_PAT }}
         run: |
           # Clone full bare mirror from GitHub (works for both public and private repos)
